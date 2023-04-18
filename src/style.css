@@ -1,0 +1,213 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+  }
+  
+  .backdrop{
+    display: none;
+    position: fixed;
+    background: rgba(0,0,0,0.5);
+    height:100vh;
+    width:100vw;
+    z-index:1;
+  }
+  
+  .modal{
+    display: flex;
+    flex-direction:column;
+    position: fixed;
+    background: white;
+    height:25vh;
+    width:25vw;
+    left:50%;
+    top:50%;
+    transform: translate(-50%,-50%) scale(0);
+    z-index:1;
+    border-radius:1rem;
+    border:2px solid black;
+    align-items:center;
+    gap:1rem;
+    transition: transform 0.25s ease-in-out;
+  }
+  
+  .open-modal{
+    transform: translate(-50%,-50%) scale(1);
+  }
+  
+  #open{
+    height:2rem;
+    width:2rem;
+    border-radius:50%;
+    border:2px solid black;
+    background-color:pink;
+    font-weight:bold;
+    font-size:1.5rem;
+    cursor:pointer;
+  }
+  
+  #close{
+    height:1rem;
+    width:1rem;
+    font-weight:bold;
+    font-size:1rem;
+    background-color:white;
+    border:none;
+    cursor:pointer;
+  }
+  
+  .header{
+    border-bottom:1px solid black;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:0.5rem 1rem;
+    width:100%;
+    height:50px;
+  }
+  
+  .headerText{
+    font-size:1.5rem;
+    font-weight:bold;
+  }
+  
+  .content{
+    padding:1rem;
+  }
+  
+  .content form{
+    display:flex;
+    flex-direction:column;
+    gap:1rem;
+  }
+  
+  .rowLabel{
+    font-weight:bold;
+  }
+  .rowInput input{
+    height:1.5rem;
+    padding-left:0.5rem;
+  }
+  
+  .content form button{
+    width:6rem;
+    height:1.5rem;
+    margin:auto;
+    background-color:lime;
+    color:white;
+    font-weight:bold;
+    border:none;
+    border-radius:1rem;
+    cursor:pointer;
+  }
+
+  #main{
+    display: flex;
+  }
+  
+  #projects{
+    flex: 1;
+    height: 100vh;
+    background-color: wheat;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem;
+    gap: 1rem;
+  }
+  
+  #tasks{
+    flex:3;
+    height: 100vh;
+    background-color: gray;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem;
+    gap: 1rem;
+  }
+
+  .projectHeading{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  .headingText{
+    font-size: 2rem;
+    font-weight: bold;
+  }
+
+  .projectList{
+    background-color: aquamarine;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    overflow: auto;
+  }
+
+  .projectElement{
+    display: flex;
+    width: 100%;
+    height: 2.5rem;
+    cursor: pointer;
+  }
+
+  .projectItemHeading{
+    flex:3;
+    font-size: 1.25rem;
+    background-color: aliceblue;
+    display: flex;
+    align-items: center;
+    padding-left: 1rem;
+  }
+
+  .deleteProjectButton{
+    flex:1;
+    display: flex;
+    background-color: rgb(255, 50, 50);
+    height: 100%;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    font-size: 2rem;
+    font-weight: bold;
+    cursor: pointer;
+  }
+
+  .taskHeading{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  .taskHeadingText{
+    font-size: 2rem;
+    font-weight: bold;
+  }
+
+  .taskList{
+    background-color: aquamarine;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+  }
+
+  #openTask{
+    height:2rem;
+    width:2rem;
+    border-radius:50%;
+    border:2px solid black;
+    background-color:pink;
+    font-weight:bold;
+    font-size:1.5rem;
+    cursor:pointer;
+  }

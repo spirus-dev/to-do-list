@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>To do list</title>
+    <link rel="stylesheet" href="style.css">
     <link rel = "icon" href = 
 "../assets/checkbox-marked-circle-auto-outline.svg" 
         type = "image/x-icon">    
@@ -13,6 +14,39 @@
     <script src="index.js" type="module" defer></script>
 </head>
 <body>
-    <div id="content"></div>
+    <div id="content">
+        <div class="backdrop"></div>
+        <div class="modal">
+            <div class="header">
+                <div class="headerText">New Project</div>
+                <button id="close">&times;</button>
+            </div>
+            <div class="content">
+                <form action="" id="form">
+                <div class="formRow">
+                    <div class="rowLabel">Project Name</div>
+                    <div class="rowInput"> <input type="text" id="projectName" required> </div>
+                </div>
+                <button type="submit" id="submit">Submit</button>
+                </form>
+            </div>
+        </div>
+        <div id="main">
+            <div id="projects">
+                <div class="projectHeading">
+                    <div class="headingText">Projects</div>
+                    <button id="open">+</button>
+                </div>
+                <div class="projectList"></div>
+            </div>
+            <div id="tasks">
+                <div class="taskHeading">
+                    <div class="taskHeadingText">Projects</div>
+                    <button id="openTask">+</button>
+                </div>
+                <div class="taskList"></div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>

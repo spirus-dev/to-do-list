@@ -179,6 +179,24 @@
     cursor: pointer;
   }
 
+  .editProjectButton{
+    flex:1;
+    display: flex;
+    background-color: yellow;
+    height: 100%;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    font-size: 2rem;
+    font-weight: bold;
+    cursor: pointer;
+  }
+
+  .editProjectButton img{
+    height: 100%;
+    width: 100%;
+  }
+
   .taskHeading{
     display: flex;
     justify-content: space-between;

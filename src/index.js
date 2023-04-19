@@ -52,15 +52,30 @@ function renderProjectList(){
         const projectItemHeading=document.createElement('div');
         projectItemHeading.classList.add('projectItemHeading');
         projectItemHeading.innerHTML=project.projectName;
+        const editProjectButton = document.createElement('div');
+        editProjectButton.classList.add('editProjectButton');
+        editProjectButton.innerHTML=`<img src='../assets/pencil-outline.svg' data-projectindex=${index}>`
+        editProjectButton.addEventListener('click',updateProject);
         const deleteProjectButton=document.createElement('div');
         deleteProjectButton.classList.add('deleteProjectButton');
         deleteProjectButton.innerHTML=`<span data-projectindex=${index}>&times;</span>`;
         deleteProjectButton.addEventListener('click',deleteProject);
         projectElement.appendChild(projectItemHeading);
-        projectElement.appendChild(deleteProjectButton)
-        projectElement.setAttribute('data-projectindex',index++);
+        projectElement.appendChild(editProjectButton);
+        projectElement.appendChild(deleteProjectButton);
+        projectElement.setAttribute('data-projectindex',index);
         projectListUI.appendChild(projectElement);
+        index++;
     });
+}
+
+function updateProject(event){
+  const index=event.srcElement.dataset.projectindex;
+  const newProjectName=prompt("Enter new project name");
+  if(newProjectName!==null && newProjectName!==''){
+    editProject(projectList,index,newProjectName);
+    renderProjectList();
+  }
 }
 
 function deleteProject(event){

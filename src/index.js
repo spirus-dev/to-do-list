@@ -71,11 +71,7 @@ function renderProjectList(){
 
 function updateProject(event){
   const index=event.srcElement.dataset.projectindex;
-  const newProjectName=prompt("Enter new project name");
-  if(newProjectName!==null && newProjectName!==''){
-    editProject(projectList,index,newProjectName);
-    renderProjectList();
-  }
+  openProjectModalFunction(index);
 }
 
 function deleteProject(event){
@@ -96,5 +92,44 @@ function handleSubmit(event){
     closeModal();
     addNewProject(projectList,projectName);
     renderProjectList();
+  }
+}
+
+//----------------------------------------------------------------------------------------------------
+
+const updateBackdrop=document.querySelector('.updateBackdrop');
+const updateProjectModal=document.querySelector('.updateProjectModal');
+const closeProjectModal=document.querySelector('#closeUpdateProject');
+closeProjectModal.addEventListener('click',closeProjectModalFunction);
+function openProjectModalFunction(index){
+  updateBackdrop.style.display='block';
+  updateProjectModal.classList.add('open-modal');
+  const projectName=document.querySelector('#newProjectName');
+  projectName.value=projectList[index].projectName;
+  const update=document.querySelector('#updateProject');
+  update.setAttribute('data-projectindex',index);
+}
+
+updateBackdrop.addEventListener('click',closeProjectModalFunction);
+function closeProjectModalFunction(){
+  const newProjectName=document.querySelector('#newProjectName')
+  newProjectName.value='';
+  updateBackdrop.style.display='none';
+  updateProjectModal.classList.remove('open-modal');
+}
+
+const update=document.querySelector('#updateProject');
+update.addEventListener('click',handleUpdate);
+function handleUpdate(event){
+  event.preventDefault();
+  const form=document.querySelector('#updateProjectForm');
+  const status=form.checkValidity();
+  form.reportValidity();
+  if(status){
+    const projectName=document.querySelector('#newProjectName').value;
+    const index=event.srcElement.dataset.projectindex;
+    editProject(projectList,index,projectName);
+    renderProjectList();
+    closeProjectModalFunction();
   }
 }

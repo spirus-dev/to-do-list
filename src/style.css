@@ -229,3 +229,102 @@
     font-size:1.5rem;
     cursor:pointer;
   }
+
+/*--------------------------------------------------------------------------------------------------*/
+
+.updateBackdrop{
+  display: none;
+  position: fixed;
+  background: rgba(0,0,0,0.5);
+  height:100vh;
+  width:100vw;
+  z-index:1;
+}
+
+.updateProjectModal{
+  display: flex;
+  flex-direction:column;
+  position: fixed;
+  background: white;
+  height:25vh;
+  width:25vw;
+  left:50%;
+  top:50%;
+  transform: translate(-50%,-50%) scale(0);
+  z-index:1;
+  border-radius:1rem;
+  border:2px solid black;
+  align-items:center;
+  gap:1rem;
+  transition: transform 0.25s ease-in-out;
+}
+
+.open-modal{
+  transform: translate(-50%,-50%) scale(1);
+}
+
+#openUpdateProject{
+  height:2rem;
+  width:2rem;
+  border-radius:50%;
+  border:2px solid black;
+  background-color:pink;
+  font-weight:bold;
+  font-size:1.5rem;
+  cursor:pointer;
+}
+
+#closeUpdateProject{
+  height:1rem;
+  width:1rem;
+  font-weight:bold;
+  font-size:1rem;
+  background-color:white;
+  border:none;
+  cursor:pointer;
+}
+
+.header{
+  border-bottom:1px solid black;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:0.5rem 1rem;
+  width:100%;
+  height:50px;
+}
+
+.headerText{
+  font-size:1.5rem;
+  font-weight:bold;
+}
+
+.content{
+  padding:1rem;
+}
+
+.content form{
+  display:flex;
+  flex-direction:column;
+  gap:1rem;
+}
+
+.rowLabel{
+  font-weight:bold;
+}
+.rowInput input{
+  height:1.5rem;
+  padding-left:0.5rem;
+}
+
+#updateProject{
+  width:6rem;
+  height:1.5rem;
+  margin:auto;
+  background-color:lime;
+  color:white;
+  font-weight:bold;
+  border:none;
+  border-radius:1rem;
+  cursor:pointer;
+}

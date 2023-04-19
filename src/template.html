@@ -31,6 +31,22 @@
                 </form>
             </div>
         </div>
+        <div class="updateBackdrop"></div>
+        <div class="updateProjectModal">
+        <div class="header">
+            <div class="headerText">Edit Project</div>
+            <button id="closeUpdateProject">&times;</button>
+        </div>
+        <div class="content">
+            <form action="" id="updateProjectForm">
+            <div class="formRow">
+                <div class="rowLabel">New Project Name</div>
+                <div class="rowInput"> <input type="text" id="newProjectName" required> </div>
+            </div>
+            <button type="submit" id="updateProject">Update</button>
+            </form>
+        </div>
+        </div>
         <div id="main">
             <div id="projects">
                 <div class="projectHeading">
@@ -41,7 +57,7 @@
             </div>
             <div id="tasks">
                 <div class="taskHeading">
-                    <div class="taskHeadingText">Projects</div>
+                    <div class="taskHeadingText">Tasks</div>
                     <button id="openTask">+</button>
                 </div>
                 <div class="taskList"></div>

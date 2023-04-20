@@ -158,16 +158,96 @@ function renderTaskList(){
     taskList.removeChild(taskList.lastChild);
   }
   if(projectList.length===0){
-    taskList.innerHTML='<div>Add a project to continue</div>';
+    taskList.innerHTML='<div class="warning">Add a project to continue</div>';
   }
   else if(projectList[currentProjectIndex].projectTasks.length===0){
-    taskList.innerHTML='<div>No Tasks in this Project</div>';
+    taskList.innerHTML='<div class="warning">No Tasks in this Project</div>';
   }
   else{
     projectList[currentProjectIndex].projectTasks.forEach(task => {
       const taskUI=document.createElement('div');
-      taskUI.innerHTML=task.taskTitle;
+      taskUI.classList.add('taskUI');
+      // const taskName=document.createElement('div');
+      // taskName.classList.add('taskName');
+      // taskName.innerHTML=task.taskTitle;
+      // taskUI.appendChild(taskName);
+      // const taskStartDate=document.createElement('div');
+      // taskStartDate.classList.add('taskStartDate');
+      // taskStartDate.innerHTML=task.taskStartDate;
+      // taskUI.appendChild(taskStartDate);
+      // const taskDueDate=document.createElement('div');
+      // taskDueDate.classList.add('taskDueDate');
+      // taskDueDate.innerHTML=task.taskDueDate;
+      // taskUI.appendChild(taskDueDate);
+      // const taskPriority=document.createElement('div');
+      // taskPriority.classList.add('taskPriority');
+      // taskPriority.innerHTML=task.taskPriority;
+      // taskUI.appendChild(taskPriority);
+      // const isComplete=document.createElement('div');
+      // isComplete.classList.add('isComplete');
+      // isComplete.innerHTML=task.isCompleted;
+      // taskUI.appendChild(isComplete);
+      // const updateTask=document.createElement('button');
+      // updateTask.innerHTML="Edit";
+      // updateTask.classList.add('updateTask');
+      // taskUI.appendChild(updateTask);
+      // const deleteTask=document.createElement('button');
+      // deleteTask.classList.add('deleteTask');
+      // deleteTask.innerHTML="Delete"
+      // taskUI.appendChild(deleteTask);
+      // const completeTask=document.createElement('button');
+      // completeTask.classList.add('completeTask');
+      // completeTask.innerHTML="Change Status";
+      // taskUI.appendChild(completeTask);
+      taskUI.innerHTML=`${task.taskTitle} : ${task.taskDescription} : ${task.taskStartDate} : ${task.taskDueDate} : ${task.taskPriority}`;
       taskList.appendChild(taskUI);
     });
+  }
+}
+
+//----------------------------------------------------------------------------------------------------
+
+const newTaskBackdrop=document.querySelector('.newTaskBackdrop');
+const newTaskModal=document.querySelector('.newTaskModal');
+const openNewTask=document.querySelector('#openNewTask');
+const closeNewTask=document.querySelector('#closeNewTask');
+openNewTask.addEventListener('click',openNewTaskModalFunction);
+closeNewTask.addEventListener('click',closeNewTaskModalFunction);
+function openNewTaskModalFunction(){
+  const date=document.querySelector('#dueDate');
+  date.setAttribute('min',new Date().toISOString().split("T")[0])
+  newTaskBackdrop.style.display='block';
+  newTaskModal.classList.add('open-modal');
+}
+
+newTaskBackdrop.addEventListener('click',closeNewTaskModalFunction);
+function closeNewTaskModalFunction(){
+  const newTaskName=document.querySelector('#newTaskName');
+  newTaskName.value='';
+  const description=document.querySelector('#description');
+  description.value='';
+  const dueDate=document.querySelector('#dueDate');
+  dueDate.value='';
+  const priority=document.querySelector('#priority');
+  priority.value='Low';
+  newTaskBackdrop.style.display='none';
+  newTaskModal.classList.remove('open-modal');
+}
+
+const add=document.querySelector('#addTask');
+add.addEventListener('click',handleAddTask);
+function handleAddTask(event){
+  event.preventDefault();
+  const form=document.querySelector('#newTaskForm');
+  const status=form.checkValidity();
+  form.reportValidity();
+  if(status){
+    const taskName=document.querySelector('#newTaskName').value;
+    const description=document.querySelector('#description').value;
+  const dueDate=document.querySelector('#dueDate').value;
+  const priority=document.querySelector('#priority').value;
+    closeNewTaskModalFunction();
+    addTask(projectList[currentProjectIndex].projectTasks,taskName,description,new Date().toISOString().split("T")[0],dueDate,priority);
+    renderTaskList();
   }
 }

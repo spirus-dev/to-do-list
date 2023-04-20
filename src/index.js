@@ -52,6 +52,8 @@ function renderProjectList(){
         const projectItemHeading=document.createElement('div');
         projectItemHeading.classList.add('projectItemHeading');
         projectItemHeading.innerHTML=project.projectName;
+        projectItemHeading.setAttribute('data-projectindex',index);
+        projectItemHeading.addEventListener('click',changeProject);
         const editProjectButton = document.createElement('div');
         editProjectButton.classList.add('editProjectButton');
         editProjectButton.innerHTML=`<img src='../assets/pencil-outline.svg' data-projectindex=${index}>`
@@ -69,6 +71,12 @@ function renderProjectList(){
     });
 }
 
+function changeProject(event){
+  const index=event.srcElement.dataset.projectindex;
+  currentProjectIndex=index;
+  renderTaskList();
+}
+
 function updateProject(event){
   const index=event.srcElement.dataset.projectindex;
   openProjectModalFunction(index);
@@ -76,10 +84,16 @@ function updateProject(event){
 
 function deleteProject(event){
     removeProject(projectList,event.srcElement.dataset.projectindex);
+    if(currentProjectIndex===Number(event.srcElement.dataset.projectindex)){
+      currentProjectIndex=0;
+      renderTaskList();
+    }
     renderProjectList();
 }
 
 renderProjectList();
+renderTaskList();
+
 const submit=document.querySelector('#submit');
 submit.addEventListener('click',handleSubmit);
 function handleSubmit(event){
@@ -91,7 +105,9 @@ function handleSubmit(event){
     const projectName=document.querySelector('#projectName').value;
     closeModal();
     addNewProject(projectList,projectName);
+    if(projectList.length!==1) currentProjectIndex+=1;
     renderProjectList();
+    renderTaskList();
   }
 }
 
@@ -131,5 +147,27 @@ function handleUpdate(event){
     editProject(projectList,index,projectName);
     renderProjectList();
     closeProjectModalFunction();
+  }
+}
+
+//----------------------------------------------------------------------------------------------------
+
+function renderTaskList(){
+  const taskList=document.querySelector('.taskList');
+  while (taskList.firstChild) {
+    taskList.removeChild(taskList.lastChild);
+  }
+  if(projectList.length===0){
+    taskList.innerHTML='<div>Add a project to continue</div>';
+  }
+  else if(projectList[currentProjectIndex].projectTasks.length===0){
+    taskList.innerHTML='<div>No Tasks in this Project</div>';
+  }
+  else{
+    projectList[currentProjectIndex].projectTasks.forEach(task => {
+      const taskUI=document.createElement('div');
+      taskUI.innerHTML=task.taskTitle;
+      taskList.appendChild(taskUI);
+    });
   }
 }

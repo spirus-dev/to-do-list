@@ -16,10 +16,9 @@ function addTask(taskList,taskTitle,taskDescription,taskStartDate,taskDueDate,ta
 function removeTask(taskList,index){
     taskList.splice(index,1);
 }
-function editTask(taskList,index,taskTitle,taskDescription,taskStartDate,taskDueDate,taskPriority){
+function editTask(taskList,index,taskTitle,taskDescription,taskDueDate,taskPriority){
     taskList[index].taskTitle=taskTitle;
     taskList[index].taskDescription=taskDescription;
-    taskList[index].taskStartDate=taskStartDate;
     taskList[index].taskDueDate=taskDueDate;
     taskList[index].taskPriority=taskPriority;
 }

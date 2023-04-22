@@ -81,6 +81,40 @@
                 </form>
             </div>
         </div>
+        <div class="updateTaskBackdrop"></div>
+        <div class="updateTaskModal">
+        <div class="header">
+            <div class="headerText">Update Task</div>
+            <button id="closeUpdateTask">&times;</button>
+        </div>
+        <div class="content">
+            <form action="" id="updateTaskForm">
+            <div class="formRow">
+                <div class="rowLabel">Update Task Name</div>
+                <div class="rowInput"> <input type="text" id="updateTaskName" required> </div>
+            </div>
+            <div class="formRow">
+                <div class="rowLabel">Update Description</div>
+                <div class="rowInput"> <textarea id="updateTaskDescription" maxlength="100"></textarea> </div>
+            </div>
+            <div class="formRow">
+                <div class="rowLabel">Update Due Date</div>
+                <div class="rowInput"> <input type="date" id="updateTaskDueDate" required> </div>
+            </div>
+            <div class="formRow">
+                <div class="rowLabel">Update Priority</div>
+                <div class="rowInput"> 
+                <select id="updateTaskPriority" id="priority" required> 
+                    <option value="Low">Low</option>
+                    <option value="Medium">Medium</option>
+                    <option value="High">High</option>
+                </select>
+                </div>
+            </div>
+            <button type="submit" id="updateTask">Update</button>
+            </form>
+        </div>
+        </div>
         <div id="main">
             <div id="projects">
                 <div class="projectHeading">

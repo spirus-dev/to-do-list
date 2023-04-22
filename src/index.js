@@ -200,7 +200,7 @@ function renderTaskList(){
       editButton.classList.add('edit');
       editButton.innerHTML='EDIT';
       editButton.setAttribute('data-taskindex',index);
-      //editButton.addEventListener('click',updateTask);
+      editButton.addEventListener('click',handleEdit);
       const deleteButton=document.createElement('button');
       deleteButton.classList.add('delete');
       deleteButton.innerHTML='DELETE';
@@ -223,10 +223,11 @@ function completeTask(event){
   renderTaskList();
 }
 
-// function updateTask(event){
-//   let index = event.srcElement.dataset.taskindex;
-//   renderTaskList();
-// }
+function handleEdit(event){
+  let index = event.srcElement.dataset.taskindex;
+  openUpdateTaskModalFunction(index);
+
+}
 
 function deleteTask(event){
   let index = event.srcElement.dataset.taskindex;
@@ -276,6 +277,63 @@ function handleAddTask(event){
   const priority=document.querySelector('#priority').value;
     closeNewTaskModalFunction();
     addTask(projectList[currentProjectIndex].projectTasks,taskName,description,new Date().toISOString().split("T")[0],dueDate,priority);
+    renderTaskList();
+  }
+}
+
+//----------------------------------------------------------------------------------------------------
+
+const updateTaskBackdrop=document.querySelector('.updateTaskBackdrop');
+const updateTaskModal=document.querySelector('.updateTaskModal');
+const closeUpdateTask=document.querySelector('#closeUpdateTask');
+closeUpdateTask.addEventListener('click',closeUpdateTaskModalFunction);
+
+function openUpdateTaskModalFunction(index){
+  const date=document.querySelector('#updateTaskDueDate');
+  date.setAttribute('min',new Date().toISOString().split("T")[0])
+  updateTaskBackdrop.style.display='block';
+  updateTaskModal.classList.add('open-modal');
+  const taskName=document.querySelector('#updateTaskName');
+  taskName.value=projectList[currentProjectIndex].projectTasks[index].taskTitle;
+  const description=document.querySelector('#updateTaskDescription');
+  description.value=projectList[currentProjectIndex].projectTasks[index].taskDescription;
+  const dueDate=document.querySelector('#updateTaskDueDate');
+  dueDate.value=projectList[currentProjectIndex].projectTasks[index].taskDueDate;
+  const priority=document.querySelector('#updateTaskPriority');
+  priority.value=projectList[currentProjectIndex].projectTasks[index].taskPriority;
+  const updateTaskButton=document.querySelector('#updateTask');
+  updateTaskButton.setAttribute('data-taskindex',index);
+}
+
+updateTaskBackdrop.addEventListener('click',closeUpdateTaskModalFunction);
+function closeUpdateTaskModalFunction(){
+  const updateTaskName=document.querySelector('#updateTaskName');
+  updateTaskName.value='';
+  const updateTaskDescription=document.querySelector('#updateTaskDescription');
+  updateTaskDescription.value='';
+  const updateTaskDueDate=document.querySelector('#updateTaskDueDate');
+  updateTaskDueDate.value='';
+  const updateTaskPriority=document.querySelector('#updateTaskPriority');
+  updateTaskPriority.value='Low';
+  updateTaskBackdrop.style.display='none';
+  updateTaskModal.classList.remove('open-modal');
+}
+
+const updateTaskButton=document.querySelector('#updateTask');
+updateTaskButton.addEventListener('click',handleUpdateTask);
+function handleUpdateTask(event){
+  event.preventDefault();
+  const updateTaskForm=document.querySelector('#updateTaskForm');
+  const status=updateTaskForm.checkValidity();
+  updateTaskForm.reportValidity();
+  if(status){
+    let index=event.srcElement.dataset.taskindex;
+    const taskName=document.querySelector('#updateTaskName').value;
+    const description=document.querySelector('#updateTaskDescription').value;
+    const dueDate=document.querySelector('#updateTaskDueDate').value;
+    const priority=document.querySelector('#updateTaskPriority').value;
+    closeUpdateTaskModalFunction();
+    editTask(projectList[currentProjectIndex].projectTasks,index,taskName,description,dueDate,priority);
     renderTaskList();
   }
 }

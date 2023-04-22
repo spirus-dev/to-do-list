@@ -650,3 +650,11 @@ textarea{
   height:1.5rem;
   padding-left:0.25rem;
 }
+
+.activeProjectName{
+  font-size: 2rem;
+  font-weight: bold;
+  color: white;
+  text-transform: uppercase;
+  border-bottom: 1px dashed white;
+}

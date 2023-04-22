@@ -1,25 +1,12 @@
 import { Project, addNewProject, editProject, removeProject} from './project.js';
 import { Task, addTask, editTask, removeTask, removeCompleted, toggleComplete, toggleStar} from './task.js'
-const projectList=[];
+const projectList=localStorage.getItem('projectList')===null?[]:JSON.parse(localStorage.getItem('projectList'));
 
-addNewProject(projectList,'General');
+if(projectList.length===0){
+  addNewProject(projectList,'General');
+  localStorage.setItem('projectList',JSON.stringify(projectList));
+}
 let currentProjectIndex=0;
-addTask(projectList[currentProjectIndex].projectTasks,'Sample Task','Sample Description','Sample Start Date','Sample Due Date','Sample Priority');
-addTask(projectList[currentProjectIndex].projectTasks,'Sample Task','Sample Description','Sample Start Date','Sample Due Date','Sample Priority');
-// addTask(projectList[currentProjectIndex].projectTasks,'Sample Task','Sample Description','Sample Start Date','Sample Due Date','Sample Priority');
-// addTask(projectList[currentProjectIndex].projectTasks,'Sample Task','Sample Description','Sample Start Date','Sample Due Date','Sample Priority');
-// addTask(projectList[currentProjectIndex].projectTasks,'Sample Task','Sample Description','Sample Start Date','Sample Due Date','Sample Priority');
-// toggleStar(projectList[currentProjectIndex].projectTasks,0)
-// toggleComplete(projectList[currentProjectIndex].projectTasks,0)
-// toggleComplete(projectList[currentProjectIndex].projectTasks,1)
-// removeTask(projectList[currentProjectIndex].projectTasks,2)
-// editTask(projectList[currentProjectIndex].projectTasks,2,'Edited Task','Edited Description','Edited Start Date','Edited Due Date','Edited Priority');
-// removeCompleted(projectList[currentProjectIndex].projectTasks)
-// addNewProject(projectList,'New List');
-// currentProjectIndex=1;
-// addTask(projectList[currentProjectIndex].projectTasks,'Sample Task','Sample Description','Sample Start Date','Sample Due Date','Sample Priority');
-// editProject(projectList,0,'Edited Project')
-// removeProject(projectList,0)
 
 const backdrop=document.querySelector('.backdrop');
 const modal=document.querySelector('.modal');
@@ -45,6 +32,8 @@ function renderProjectList(){
     while (projectListUI.firstChild) {
         projectListUI.removeChild(projectListUI.lastChild);
       }
+    const activeProjectName=document.querySelector('.activeProjectName');
+    activeProjectName.innerHTML=projectList[currentProjectIndex].projectName;
     let index=0;
     projectList.forEach(project => {
         const projectElement=document.createElement('div');
@@ -84,6 +73,7 @@ function updateProject(event){
 
 function deleteProject(event){
     removeProject(projectList,event.srcElement.dataset.projectindex);
+    localStorage.setItem('projectList',JSON.stringify(projectList));
     if(Number(currentProjectIndex)===Number(event.srcElement.dataset.projectindex)){
       currentProjectIndex=0;
       renderTaskList();
@@ -105,6 +95,7 @@ function handleSubmit(event){
     const projectName=document.querySelector('#projectName').value;
     closeModal();
     addNewProject(projectList,projectName);
+    localStorage.setItem('projectList',JSON.stringify(projectList));
     if(projectList.length!==1) currentProjectIndex+=1;
     renderProjectList();
     renderTaskList();
@@ -145,6 +136,7 @@ function handleUpdate(event){
     const projectName=document.querySelector('#newProjectName').value;
     const index=event.srcElement.dataset.projectindex;
     editProject(projectList,index,projectName);
+    localStorage.setItem('projectList',JSON.stringify(projectList));
     renderProjectList();
     closeProjectModalFunction();
   }
@@ -193,7 +185,7 @@ function renderTaskList(){
       taskControls.classList.add('taskControls');
       const completeButton=document.createElement('button');
       completeButton.classList.add('complete');
-      completeButton.innerHTML='COMPLETE';
+      completeButton.innerHTML=task.isCompleted?'INCOMPLETE':'COMPLETE';
       completeButton.setAttribute('data-taskindex',index);
       completeButton.addEventListener('click',completeTask);
       const editButton=document.createElement('button');
@@ -220,6 +212,7 @@ function renderTaskList(){
 function completeTask(event){
   let index = event.srcElement.dataset.taskindex;
   toggleComplete(projectList[currentProjectIndex].projectTasks,index);
+  localStorage.setItem('projectList',JSON.stringify(projectList));
   renderTaskList();
 }
 
@@ -232,6 +225,7 @@ function handleEdit(event){
 function deleteTask(event){
   let index = event.srcElement.dataset.taskindex;
   removeTask(projectList[currentProjectIndex].projectTasks,index);
+  localStorage.setItem('projectList',JSON.stringify(projectList));
   renderTaskList();
 }
 //----------------------------------------------------------------------------------------------------
@@ -277,6 +271,7 @@ function handleAddTask(event){
   const priority=document.querySelector('#priority').value;
     closeNewTaskModalFunction();
     addTask(projectList[currentProjectIndex].projectTasks,taskName,description,new Date().toISOString().split("T")[0],dueDate,priority);
+    localStorage.setItem('projectList',JSON.stringify(projectList));
     renderTaskList();
   }
 }
@@ -334,6 +329,7 @@ function handleUpdateTask(event){
     const priority=document.querySelector('#updateTaskPriority').value;
     closeUpdateTaskModalFunction();
     editTask(projectList[currentProjectIndex].projectTasks,index,taskName,description,dueDate,priority);
+    localStorage.setItem('projectList',JSON.stringify(projectList));
     renderTaskList();
   }
 }

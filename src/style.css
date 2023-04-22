@@ -218,12 +218,12 @@
     height: 100%;
     padding: 1rem;
     display: grid;
-    grid-template-columns: repeat(auto-fill,minmax(20vw,1fr));
-    grid-template-rows: repeat(auto-fill, 40vh);
-    grid-auto-rows: 40vh;
-    grid-auto-columns: 20vw;
+    grid-template-columns: repeat(auto-fill,minmax(15vw,1fr));
+    grid-template-rows: repeat(auto-fill, 45vh);
+    grid-auto-rows: 50vh;
+    grid-auto-columns: 50vw;
     column-gap: 4.5rem;
-    row-gap: 2rem;
+    row-gap: 2.5rem;
     overflow: auto;
   }
 
@@ -359,7 +359,7 @@
   flex-direction:column;
   position: fixed;
   background: white;
-  height:60vh;
+  height:55vh;
   width:20vw;
   left:50%;
   top:50%;
@@ -419,7 +419,7 @@
 .content form{
   display:flex;
   flex-direction:column;
-  gap:1rem;
+  gap:1.25rem;
 }
 
 .rowLabel{
@@ -460,20 +460,75 @@ textarea{
   font-size: 10rem;
   color: gray;
   word-wrap: break-word;
+  height: 80vh;
+  width: 70vw;
 }
 
 .taskUI{
-  background-color: white;
-  border-radius: 1rem;
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  justify-content: center;
-  padding: 1rem;
-  word-wrap: break-word;
+  display:flex;
+  flex-direction:column;
+  height:45vh;
+  width:20vw;
+  background-color:wheat;
+  padding:1rem;
+  gap:1rem;
+  border-radius:1rem;
 }
 
-.taskUI button{
-  width: 50%;
-  margin: auto;
+.taskHeader{
+  font-size:1.5rem;
+  text-align:center;
+  font-weight:bold;
+  border-bottom:1px solid black;
 }
+
+.taskContent{
+  display:flex;
+  flex-direction:column;
+  height:80%;
+  gap:1rem;
+}
+
+.contentRow{
+  display:flex;
+  gap:1rem;
+}
+
+.rowTitle{
+  flex:1;
+  font-weight:bold;
+}
+.rowContent{
+  flex:2;
+  word-wrap: break-word;
+  overflow: auto;
+}
+
+.taskControls{
+  display:flex;
+  gap:1rem;
+}
+
+.taskControls button{
+  border:none;
+  height:1.5rem;
+  font-weight:bold;
+  border-radius:1rem;
+  cursor:pointer;
+}
+
+.complete{
+  flex:2;
+  background-color:green;
+}
+
+.edit{
+  flex:1;
+  background-color:yellow;
+}
+
+.delete{
+  flex:1;
+  background-color:red;
+}
+

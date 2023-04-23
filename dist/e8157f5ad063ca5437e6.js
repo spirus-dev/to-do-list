@@ -1,0 +1,1 @@
+class Project{projectTasks=[];constructor(e){this.projectName=e}}function addNewProject(e,t){e.push(new Project(t))}function editProject(e,t,o){e[t].projectName=o}function removeProject(e,t){e.splice(t,1)}export{Project,addNewProject,editProject,removeProject};

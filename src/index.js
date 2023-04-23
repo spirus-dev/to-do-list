@@ -1,3 +1,5 @@
+import './style.css'
+import editIcon from '../assets/pencil-outline.svg';
 import { Project, addNewProject, editProject, removeProject} from './project.js';
 import { Task, addTask, editTask, removeTask, removeCompleted, toggleComplete, toggleStar} from './task.js'
 const projectList=localStorage.getItem('projectList')===null?[]:JSON.parse(localStorage.getItem('projectList'));
@@ -45,7 +47,7 @@ function renderProjectList(){
         projectItemHeading.addEventListener('click',changeProject);
         const editProjectButton = document.createElement('div');
         editProjectButton.classList.add('editProjectButton');
-        editProjectButton.innerHTML=`<img src='../assets/pencil-outline.svg' data-projectindex=${index}>`
+        editProjectButton.innerHTML=`<img src=${editIcon} data-projectindex=${index}>`
         editProjectButton.addEventListener('click',updateProject);
         const deleteProjectButton=document.createElement('div');
         deleteProjectButton.classList.add('deleteProjectButton');
@@ -58,11 +60,21 @@ function renderProjectList(){
         projectListUI.appendChild(projectElement);
         index++;
     });
+    const projectUIList=document.querySelectorAll('.projectItemHeading');
+    projectUIList[currentProjectIndex].classList.toggle('active');
 }
 
 function changeProject(event){
+  const projectListUI=document.querySelectorAll('.projectItemHeading');
   const index=event.srcElement.dataset.projectindex;
+  if(currentProjectIndex===index){
+    return;
+  }
+  projectListUI[currentProjectIndex].classList.toggle('active');
   currentProjectIndex=index;
+  const activeProjectName=document.querySelector('.activeProjectName');
+  activeProjectName.innerHTML=projectList[currentProjectIndex].projectName;
+  projectListUI[currentProjectIndex].classList.toggle('active');
   renderTaskList();
 }
 
